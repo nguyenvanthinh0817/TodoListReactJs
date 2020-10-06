@@ -4,15 +4,16 @@ import React, { useState } from 'react';
 import './App.scss';
 import TodoList from './components/TodoList';
 function App() {
-    const data = [
+    const [data, setdata] = useState([
         { id: '1', title: 'di choi', status: 'C' },
         { id: '2', title: 'di sua xe', status: 'D' },
         { id: '4', title: 'di hoc', status: 'X' },
         { id: '5', title: 'di hoc', status: 'X' },
         { id: '6', title: 'di hoc', status: 'X' },
-    ];
+    ]);
     const [todoList, setTodoList] = useState(data);
     const [timkiem, setTimkiem] = useState('');
+    const [taomoi, setTaoMoi] = useState('');
     function handleonClickXoa(x) {
         const index = todoList.findIndex((todo) => x.id === todo.id);
         if (index < 0) {
@@ -95,8 +96,23 @@ function App() {
                     .toLowerCase()
                     .indexOf(timkiem.toLowerCase().trim()) >= 0,
         );
-        console.log(newTodoList);
+        console.log(data);
         setTodoList(newTodoList);
+    }
+
+    function handleTaoMoi() {
+        console.log(timkiem);
+        const newTodoList = [...todoList];
+        newTodoList.push({
+            id: newTodoList.length,
+            title: timkiem,
+            status: 'C',
+        });
+        console.log(newTodoList);
+        //data.push({ id: newTodoList.length, title: timkiem, status: 'C' });
+        setdata(newTodoList);
+        setTodoList(newTodoList);
+        setTimkiem('');
     }
     return (
         <div className="App">
@@ -105,21 +121,33 @@ function App() {
                     <h2>Danh sách công việc</h2>
                     <div className="timkiem">
                         <input
+                            className="txt-timkiem"
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="timkiemtxt"
                             onChange={onChangeTimKiem}
                             value={timkiem}
                             placeholder="Tìm kiếm"
                         ></input>
-                        <button
-                            className="btn btn-outline-secondary"
-                            onClick={handleTimKiem}
-                        >
-                            Tìm
-                        </button>
+                        <div className="tohop">
+                            <button
+                                type="submit"
+                                className="btn-timkiem btn btn-info"
+                                onClick={handleTimKiem}
+                            >
+                                Tìm
+                            </button>
+                            <button
+                                type="submit"
+                                className="btn-taomoi btn btn-success"
+                                onClick={handleTaoMoi}
+                            >
+                                Lưu
+                            </button>
+                        </div>
                     </div>
-                    <button className="btn btn-success">Thêm việc mới</button>
+
+                    {/* <button className="btn btn-success">Thêm việc mới</button> */}
                 </div>
                 <TodoList
                     chua={chua()}

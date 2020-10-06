@@ -87,7 +87,7 @@ function TodoList(props) {
                             <div className="card-body">
                                 <h5 className="card-title">{x.title}</h5>
                                 <button
-                                    className="btn btn-primary"
+                                    className="btn btn-warning"
                                     onClick={() => handleonClickChuaLam(x)}
                                 >
                                     Chưa làm

@@ -6,6 +6,7 @@
   flex-direction: column;
   .container {
     background-color: #aaa;
+
     .body {
       display: flex;
       padding: 0 16px;
@@ -30,7 +31,21 @@
     .header {
       .timkiem {
         display: flex;
+        flex-direction: column;
         margin: 19px 0;
+        .tohop {
+          display: flex;
+          button {
+            flex-grow: 1;
+            margin-top: 8px;
+          }
+          .btn-timkiem {
+            margin-right: 4px;
+          }
+          .btn-taomoi {
+            margin-left: 4px;
+          }
+        }
       }
     }
   }
