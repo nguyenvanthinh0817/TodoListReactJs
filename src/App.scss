@@ -1,0 +1,37 @@
+/** @format */
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  .container {
+    background-color: #aaa;
+    .body {
+      display: flex;
+      padding: 0 16px;
+      .card {
+        margin: 8px 0;
+      }
+      .btn {
+        margin: 0 4px;
+      }
+      .chua {
+        flex-grow: 1;
+      }
+      .dang {
+        flex-grow: 1;
+        padding: 0 16px;
+      }
+
+      .xong {
+        flex-grow: 1;
+      }
+    }
+    .header {
+      .timkiem {
+        display: flex;
+        margin: 19px 0;
+      }
+    }
+  }
+}
