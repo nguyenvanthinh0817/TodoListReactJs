@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.scss';
 import TodoList from './components/TodoList';
 function App() {
@@ -8,12 +8,13 @@ function App() {
         { id: '1', title: 'di choi', status: 'C' },
         { id: '2', title: 'di sua xe', status: 'D' },
         { id: '4', title: 'di hoc', status: 'X' },
-        { id: '5', title: 'di hoc', status: 'X' },
-        { id: '6', title: 'di hoc', status: 'X' },
     ]);
     const [todoList, setTodoList] = useState(data);
     const [timkiem, setTimkiem] = useState('');
     const [taomoi, setTaoMoi] = useState('');
+    const [count, setCount] = useState(5);
+    const typingTimeountRef = useRef(null);
+
     function handleonClickXoa(x) {
         const index = todoList.findIndex((todo) => x.id === todo.id);
         if (index < 0) {
@@ -85,18 +86,29 @@ function App() {
     function onChangeTimKiem(e) {
         console.log(e.target.value);
         setTimkiem(e.target.value);
-        //   handleTimKiem();
+        const value = e.target.value;
+        if (typingTimeountRef.current) {
+            clearTimeout(typingTimeountRef.current);
+        }
+
+        typingTimeountRef.current = setTimeout(() => {
+            handleTimKiem(value.trim());
+        }, 300);
+
+        //
     }
 
-    function handleTimKiem() {
-        console.log(timkiem);
+    function handleTimKiem(x = '') {
+        console.log('dsffd', x);
+        if (typeof x === 'object') {
+            setTodoList(data);
+            return;
+        }
         const newTodoList = data.filter(
             (todo) =>
-                todo.title
-                    .toLowerCase()
-                    .indexOf(timkiem.toLowerCase().trim()) >= 0,
+                todo.title.toLowerCase().indexOf(x.toLowerCase().trim()) >= 0,
         );
-        console.log(data);
+
         setTodoList(newTodoList);
     }
 
@@ -104,12 +116,13 @@ function App() {
         console.log(timkiem);
         const newTodoList = [...todoList];
         newTodoList.push({
-            id: newTodoList.length,
+            id: count,
             title: timkiem,
             status: 'C',
         });
         console.log(newTodoList);
-        //data.push({ id: newTodoList.length, title: timkiem, status: 'C' });
+        data.push({ id: count, title: timkiem, status: 'C' });
+        setCount(count + 1);
         setdata(newTodoList);
         setTodoList(newTodoList);
         setTimkiem('');
@@ -127,16 +140,16 @@ function App() {
                             id="timkiemtxt"
                             onChange={onChangeTimKiem}
                             value={timkiem}
-                            placeholder="Tìm kiếm"
+                            placeholder="Nhập công việc để tìm hoặc tạo mới"
                         ></input>
                         <div className="tohop">
-                            <button
+                            {/* <button
                                 type="submit"
                                 className="btn-timkiem btn btn-info"
                                 onClick={handleTimKiem}
                             >
                                 Tìm
-                            </button>
+                            </button> */}
                             <button
                                 type="submit"
                                 className="btn-taomoi btn btn-success"
