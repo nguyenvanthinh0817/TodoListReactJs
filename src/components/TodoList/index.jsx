@@ -132,7 +132,7 @@ function TodoList(props) {
                 </div>
             </div>
             <div className="footer">
-                <h1>Hello may cung</h1>
+                <h1>Hello</h1>
             </div>
         </div>
     );

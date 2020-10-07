@@ -12,7 +12,6 @@ function App() {
     const [todoList, setTodoList] = useState(data);
     const [timkiem, setTimkiem] = useState('');
     const [taomoi, setTaoMoi] = useState('');
-    const [count, setCount] = useState(5);
     const typingTimeountRef = useRef(null);
 
     function handleonClickXoa(x) {
@@ -114,18 +113,24 @@ function App() {
 
     function handleTaoMoi() {
         console.log(timkiem);
-        const newTodoList = [...todoList];
+        const newTodoList = [...data];
+        const id = Date.now().toString();
         newTodoList.push({
-            id: count,
+            id: id,
             title: timkiem,
             status: 'C',
         });
         console.log(newTodoList);
-        data.push({ id: count, title: timkiem, status: 'C' });
-        setCount(count + 1);
+        data.push({ id: id, title: timkiem, status: 'C' });
+
         setdata(newTodoList);
         setTodoList(newTodoList);
         setTimkiem('');
+        onChangeTimKiem({
+            target: {
+                value: '',
+            },
+        });
     }
     return (
         <div className="App">
